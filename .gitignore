@@ -1,0 +1,94 @@
+    # ------------------------------
+    # Python
+    # ------------------------------
+    __pycache__/
+    *.py[cod]
+    *.pyo
+    *.pyd
+    *$py.class
+
+    # Virtual environment
+    venv/
+    env/
+    ENV/
+    .venv/
+
+    # Pydantic / runtime caches
+    *.mypy_cache/
+    .pytest_cache/
+    .dmypy.json
+    dmypy.json
+
+    # IDE files
+    .vscode/
+    .idea/
+    *.swp
+
+    # Local database files
+    *.db
+    *.sqlite3
+    *.sqlite
+    *.db-journal
+
+    # Compiled C extensions
+    *.so
+
+    # Logs
+    *.log
+    logs/
+    *.tmp
+
+    # FastAPI / Uvicorn reload files
+    uvicorn.sock
+
+    # Environment variables
+    .env
+    .env.*
+
+    # PyInstaller
+    dist/
+    build/
+    __pycache__/
+
+    # Distribution / packaging
+    .Python
+    build/
+    develop-eggs/
+    downloads/
+    eggs/
+    .eggs/
+    lib/
+    lib64/
+    parts/
+    sdist/
+    var/
+    wheels/
+    pip-wheel-metadata/
+    share/python-wheels/
+    *.egg-info/
+    .installed.cfg
+    *.egg
+
+    # Documentation
+    docs/_build/
+    site/
+
+    # Coverage
+    cover/
+    coverage.xml
+    *.cover
+    *.py,cover
+    .hypothesis/
+    htmlcov/
+    .tox/
+
+    # pytest
+    .cache/
+
+    # SQLite WAL files
+    *-shm
+    *-wal
+
+    # OS files
+    Thumbs.db
+    .DS_Store
