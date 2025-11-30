@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from core.security import get_pass_hash, verify_pass_hash, create_access_token, create_refresh_token, decode_access_token
+from core.security import get_pass_hash, verify_pass_hash, create_access_token, create_refresh_token, decode_access_token, decode_refresh_token
 from fastapi import HTTPException, status
 from models.user import User
 from schemas.user import UserCreate, UserOut, LoginSchema, RefreshRequest
@@ -56,20 +56,28 @@ async def login_user(data: LoginSchema, db: AsyncSession):
         "token_type": "bearer"
     }
 
-
 async def refresh_token(data: RefreshRequest, db: AsyncSession):
-    refresh_token = data.refresh_token
+    incoming_refresh_token = data.refresh_token
+
+    # 1. Decode refresh token -> verifies expiration & signature
     try:
-        payload = decode_access_token(refresh_token)
+        payload = decode_refresh_token(incoming_refresh_token)
         user_id = payload.get("sub")
     except:
         raise HTTPException(401, "Invalid refresh token")
 
-    # delete's old refresh token
-    await db.execute(
-        delete(RefreshToken).where(RefreshToken.user_id == user_id)
-    )
+    # Check DB for the incoming refresh token
+    db_token = await db.execute(select(RefreshToken).where(RefreshToken.token == incoming_refresh_token))
+    stored_token  = db_token.scalar_one_or_none()
 
+    if stored_token is None:
+        raise HTTPException(401, "Refresh token is invalid or already used")
+
+    # Delete this refresh token (ROTATION — invalidate used token)
+    await db.execute(delete(RefreshToken).where(RefreshToken.user_id == user_id))
+    await db.commit()
+
+    # Create new Roatated tokens
     new_access_token = create_access_token({"sub": str(user_id)}, expires_delta=timedelta(hours=30))
     new_refresh_token = create_refresh_token({"sub": str(user_id)}, expires_delta=timedelta(days=7))
 

@@ -52,20 +52,22 @@ def decode_access_token(token: str):
             settings.jwt_algorithm
         )
         return payload
-        print("Decoded Refresh TOken")
 
     except jwt.ExpiredSignatureError:
-        print("Token expired")
-        raise HTTPException(
-            status_code=401, detail="Token expired"
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+def decode_refresh_token(token: str):
+    try:
+        payload = jwt.decode(
+            token,
+            settings.jwt_secret,
+            settings.jwt_algorithm
         )
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(401, "Refresh token expired")
 
     except jwt.InvalidTokenError:
-        print("Invalid token")
-        raise HTTPException(
-            status_code=401, detail="Invalid token"
-        )
-
-# when secret, algo, exp changes
-# def decode_refresh_token(token: str):
-    # pass
+        raise HTTPException(401, "Invalid refresh token")

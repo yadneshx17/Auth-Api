@@ -39,3 +39,6 @@ htmlcov/
 *.sqlite3
 alembic/__pycache__/
 alembic/versions/__pycache__/
+
+.zed
+.zed/*
