@@ -1,94 +1,41 @@
-    # ------------------------------
-    # Python
-    # ------------------------------
-    __pycache__/
-    *.py[cod]
-    *.pyo
-    *.pyd
-    *$py.class
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.py[cod]
+*.pyo
+*.pyd
 
-    # Virtual environment
-    venv/
-    env/
-    ENV/
-    .venv/
+# Virtual environment
+venv/
+.env/
+ENV/
+env/
 
-    # Pydantic / runtime caches
-    *.mypy_cache/
-    .pytest_cache/
-    .dmypy.json
-    dmypy.json
+# FastAPI / Uvicorn
+*.log
 
-    # IDE files
-    .vscode/
-    .idea/
-    *.swp
+# Environment variables
+.env
+.env.*    # ignore all env files except sample
 
-    # Local database files
-    *.db
-    *.sqlite3
-    *.sqlite
-    *.db-journal
+# Ignore compiled files
+*.so
 
-    # Compiled C extensions
-    *.so
+# IDE / Editor
+.vscode/
+.idea/
 
-    # Logs
-    *.log
-    logs/
-    *.tmp
+# macOS / Windows
+.DS_Store
+Thumbs.db
 
-    # FastAPI / Uvicorn reload files
-    uvicorn.sock
+# Pytest / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
 
-    # Environment variables
-    .env
-    .env.*
-
-    # PyInstaller
-    dist/
-    build/
-    __pycache__/
-
-    # Distribution / packaging
-    .Python
-    build/
-    develop-eggs/
-    downloads/
-    eggs/
-    .eggs/
-    lib/
-    lib64/
-    parts/
-    sdist/
-    var/
-    wheels/
-    pip-wheel-metadata/
-    share/python-wheels/
-    *.egg-info/
-    .installed.cfg
-    *.egg
-
-    # Documentation
-    docs/_build/
-    site/
-
-    # Coverage
-    cover/
-    coverage.xml
-    *.cover
-    *.py,cover
-    .hypothesis/
-    htmlcov/
-    .tox/
-
-    # pytest
-    .cache/
-
-    # SQLite WAL files
-    *-shm
-    *-wal
-
-    # OS files
-    Thumbs.db
-    .DS_Store
+# Migrations / SQLite (if any)
+*.sqlite3
+alembic/__pycache__/
+alembic/versions/__pycache__/

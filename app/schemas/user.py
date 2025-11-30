@@ -9,3 +9,10 @@ class UserOut(BaseModel):
     email: EmailStr
 
     model_config = ConfigDict(from_attributes=True)
+
+class LoginSchema(BaseModel):
+    email: EmailStr
+    password: str
+
+class RefreshRequest(BaseModel):
+    refresh_token: str
