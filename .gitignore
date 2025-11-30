@@ -10,7 +10,7 @@ __pycache__/
 venv/
 .env/
 ENV/
-env/
+#env/
 
 # FastAPI / Uvicorn
 *.log
@@ -25,6 +25,8 @@ env/
 # IDE / Editor
 .vscode/
 .idea/
+.zed
+.zed/*
 
 # macOS / Windows
 .DS_Store
@@ -39,6 +41,3 @@ htmlcov/
 *.sqlite3
 alembic/__pycache__/
 alembic/versions/__pycache__/
-
-.zed
-.zed/*

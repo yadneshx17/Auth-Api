@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from sqlalchemy.ext.declarative import declarative_base
 # import os
 # from dotenv import load_dotenv
-from config.settings import settings
+from ..config.settings import settings
 
 # load environment vairables from .env file
 # load_dotenv()
