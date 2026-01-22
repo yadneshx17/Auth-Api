@@ -1,13 +1,13 @@
 from datetime import timedelta
-
-from core.security import get_pass_hash, verify_pass_hash, create_access_token, create_refresh_token, decode_access_token, decode_refresh_token
 from fastapi import HTTPException, status
-from models.user import User
-from schemas.user import UserCreate, UserOut, LoginSchema, RefreshRequest
 from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
-from models.refresh_token import store_refresh_token
-from models.refresh_token import RefreshToken
+
+from app.core.security import get_pass_hash, verify_pass_hash, create_access_token, create_refresh_token, decode_access_token, decode_refresh_token
+from app.models.user import User
+from app.schemas.user import UserCreate, UserOut, LoginSchema, RefreshRequest
+from app.models.refresh_token import store_refresh_token
+from app.models.refresh_token import RefreshToken
 
 async def create_user(data: UserCreate, db: AsyncSession) -> UserOut:
     stmt = select(User).where(User.email == data.email)
@@ -62,8 +62,8 @@ async def refresh_token(data: RefreshRequest, db: AsyncSession):
     # 1. Decode refresh token -> verifies expiration & signature
     try:
         payload = decode_refresh_token(incoming_refresh_token)
-        user_id = payload.get("sub")
-    except:
+        user_id = int(payload.get("sub"))
+    except Exception as e:
         raise HTTPException(401, "Invalid refresh token")
 
     # Check DB for the incoming refresh token

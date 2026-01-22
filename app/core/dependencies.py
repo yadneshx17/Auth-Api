@@ -4,10 +4,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 import jwt
 
-from core.security import decode_access_token
-from db.database import get_session
-from models.user import User
+from app.core.security import decode_access_token
+from app.db.database import get_session
+from app.models.user import User
 
+# extracts token from Header.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 async def get_current_user(

@@ -2,12 +2,12 @@ from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import delete
 
-from schemas.user import UserCreate, UserOut, LoginSchema, RefreshRequest
-from db.database import get_session
-from auth_service.auth_service import create_user, login_user, refresh_token
-from core.dependencies import get_current_user
-from models.user import User
-from models.refresh_token import RefreshToken
+from app.schemas.user import UserCreate, UserOut, LoginSchema, RefreshRequest
+from app.db.database import get_session
+from app.auth_service.auth_service import create_user, login_user, refresh_token
+from app.core.dependencies import get_current_user
+from app.models.user import User
+from app.models.refresh_token import RefreshToken
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 

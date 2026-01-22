@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Index
 from datetime import datetime
 from sqlalchemy.sql import func
 
-from ..db.database import Base
+from app.db.database import Base
 
 class RefreshToken(Base):
     __tablename__ = "refresh_tokens"
@@ -14,8 +14,6 @@ class RefreshToken(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     __table_args__ = (Index("idx_user_token", "user_id", "token"),)
-
-    # user = relationship("User", back_populates="refresh_tokens")
 
 async def store_refresh_token(user_id: int, token: str, db) :
     db.add(RefreshToken(user_id=user_id, token=token))

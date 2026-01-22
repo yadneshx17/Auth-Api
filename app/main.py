@@ -1,9 +1,12 @@
-from fastapi import FastAPI
 from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from db.database import engine, Base
-from models.user import User
-from routes.auth import router as auth_router
+
+from app.db.database import Base, engine
+from app.models.user import User
+from app.routes.auth import router as auth_router
+
 
 # Create tables asynchronously
 async def init_models():
@@ -19,13 +22,14 @@ async def lifespan(app: FastAPI):
     yield
     print("Shutting down")
 
+
 app = FastAPI(lifespan=lifespan)
 
-app.add_middleware (
+app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://www.google.com"],
     allow_headers=["*"],
-    allow_methods=["*"]
+    allow_methods=["*"],
 )
 
 app.include_router(auth_router)
